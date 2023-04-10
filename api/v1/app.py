@@ -20,7 +20,7 @@ def teardown_handle(app):
 def notfound(app):
     return jsonify({
         "error": "Not found"
-        })
+        }), 404
 
 
 if __name__ == "__main__":
