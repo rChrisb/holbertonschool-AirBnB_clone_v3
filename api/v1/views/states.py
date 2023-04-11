@@ -45,9 +45,9 @@ def detete_state(state_id):
 def create_state():
     json_request = request.get_json()
     if not json_request:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     if "name" not in json_request.keys():
-        abort(404, "Missing name")
+        abort(400, "Missing name")
     new_state = State(**json_request)
     storage.new(new_state)
     storage.save()
@@ -59,7 +59,7 @@ def create_state():
 def update_state(state_id):
     json_request = request.get_json()
     if not json_request:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     all_states = storage.all(State)
     if f"State.{state_id}" not in all_states.keys():
         abort(404)
