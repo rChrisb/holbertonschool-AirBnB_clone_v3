@@ -117,8 +117,8 @@ class TestFileStorage(unittest.TestCase):
 
     def test_get(self):
         if models.storage_t != "db":
-            self.assertEqual(None, self.storage.get(State, 7))
+            self.assertEqual(None, models.storage.get(State, 7))
 
     def test_count(self):
         if models.storage_t != "db":
-            self.assertEqual(type(self.storage.count()), int)
+            self.assertEqual(type(models.storage.count()), int)
