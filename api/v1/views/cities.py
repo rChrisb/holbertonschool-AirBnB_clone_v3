@@ -23,13 +23,14 @@ from models.city import City
 @app_views.route("/states/<state_id>/cities", methods=['GET'],
                  strict_slashes=False)
 def city_by_state_viewer(state_id):
+    if f"State.{state_id}" not in storage.all(State).keys():
+        abort(404)
     cities_dict_list = []
     all_cities = storage.all(City)
     for city_value in all_cities.values():
         if city_value.state_id == state_id:
             cities_dict_list.append(city_value.to_dict())
     return jsonify(cities_dict_list)
-    abort(404)
 
 
 @app_views.route("/cities/<city_id>", methods=['GET'], strict_slashes=False)
