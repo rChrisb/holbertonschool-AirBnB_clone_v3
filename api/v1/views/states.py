@@ -15,7 +15,7 @@ def states_viewer():
     all_states = storage.all(State)
     for state in all_states.values():
         states_dict_list.append(state.to_dict())
-    return states_dict_list
+    return jsonify(states_dict_list)
 
 
 @app_views.route("/states/<state_id>", methods=['GET'], strict_slashes=False)
@@ -23,7 +23,7 @@ def state_viewer(state_id):
     all_states = storage.all(State)
     for state_key in all_states.keys():
         if state_key == f"State.{state_id}":
-            return all_states[state_key].to_dict()
+            return jsonify(all_states[state_key].to_dict())
     abort(404)
 
 
@@ -37,7 +37,7 @@ def detete_state(state_id):
         if state_key == f"State.{state_id}":
             storage.delete(all_states[state_key])
             storage.save()
-            return {}, 200
+            return jsonify({}), 200
 
 
 @app_views.route("/states", methods=['POST'],
@@ -51,7 +51,7 @@ def create_state():
     new_state = State(**json_request)
     storage.new(new_state)
     storage.save()
-    return new_state.to_dict(), 201
+    return jsonify(new_state.to_dict()), 201
 
 
 @app_views.route("/states/<state_id>", methods=['PUT'],
@@ -65,4 +65,4 @@ def update_state(state_id):
         abort(404)
     all_states[f"State.{state_id}"].__dict__.update(json_request)
     all_states[f"State.{state_id}"].save()
-    return all_states[f"State.{state_id}"].to_dict(), 200
+    return jsonify(all_states[f"State.{state_id}"].to_dict()), 200
