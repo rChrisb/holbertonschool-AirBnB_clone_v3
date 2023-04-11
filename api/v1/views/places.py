@@ -59,7 +59,7 @@ def create_place_from_city(city_id):
         abort(400, "Not a JSON")
     if "user_id" not in json_request.keys():
         abort(400, "Missing user_id")
-    if f"User.{json_request[user_id]}" not in all_users.keys():
+    if f"User.{json_request["user_id"]}" not in all_users.keys():
         abort(404)
     if "name" not in json_request.keys():
         abort(400, "Missing name")
