@@ -19,7 +19,8 @@ def amenities_viewer():
     return jsonify(amenities_dict_list)
 
 
-@app_views.route("/amenities/<amenity_id>", methods=['GET'], strict_slashes=False)
+@app_views.route("/amenities/<amenity_id>", methods=['GET'],
+                 strict_slashes=False)
 def amenity_viewer(amenity_id):
     all_amenities = storage.all(Amenity)
     for amenity_key in all_amenities.keys():
