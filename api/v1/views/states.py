@@ -6,6 +6,7 @@ from flask import jsonify
 from flask import abort
 from flask import request
 from models import storage
+from os import getenv
 from models.state import State
 
 
@@ -63,6 +64,7 @@ def update_state(state_id):
     all_states = storage.all(State)
     if f"State.{state_id}" not in all_states.keys():
         abort(404)
-    all_states[f"State.{state_id}"].__dict__.update(json_request)
+    for key, value in json_request.items():
+        setattr(all_states[f"State.{state_id}"], key, value)
     all_states[f"State.{state_id}"].save()
     return jsonify(all_states[f"State.{state_id}"].to_dict()), 200
