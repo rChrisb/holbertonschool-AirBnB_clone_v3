@@ -104,4 +104,4 @@ class TestFileStorage(unittest.TestCase):
         if models.storage_t == "db":
             self.assertEqual(type(models.storage.count()), int)
             self.assertEqual(
-                models.storage.count() == len(models.storage.all()))
+                models.storage.count(), len(models.storage.all()))
