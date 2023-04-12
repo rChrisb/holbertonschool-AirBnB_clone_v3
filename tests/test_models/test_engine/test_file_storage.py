@@ -120,9 +120,15 @@ class TestFileStorage(unittest.TestCase):
         """get method test"""
         if models.storage_t != "db":
             self.assertEqual(None, models.storage.get(State, 7))
+            texas = State()
+            texas.id = 1050
+            texas.save()
+            self.assertEqual(models.storage.get(State, 1050), texas)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
         """count method test"""
         if models.storage_t != "db":
             self.assertEqual(type(models.storage.count()), int)
+            self.assertEqual(
+                models.storage.count() == len(models.storage.all()))
