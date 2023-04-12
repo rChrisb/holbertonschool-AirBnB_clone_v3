@@ -93,7 +93,7 @@ class TestFileStorage(unittest.TestCase):
         """get method test"""
         if models.storage_t == "db":
             self.assertEqual(None, models.storage.get(State, 7))
-        texas = State()
+        texas = State(name="Texas")
         texas.save()
         self.assertEqual(models.storage.get(State, texas.id), texas)
 
