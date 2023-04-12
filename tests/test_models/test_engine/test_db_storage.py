@@ -94,6 +94,7 @@ class TestFileStorage(unittest.TestCase):
         if models.storage_t == "db":
             self.assertEqual(None, models.storage.get(State, 7))
         texas = State()
+        models.storage.new(texas)
         models.storage.save()
         self.assertEqual(models.storage.get(State, texas.id), texas)
 
